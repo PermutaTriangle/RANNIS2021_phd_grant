@@ -233,10 +233,10 @@ exploration in two main stages. First is the expansion stage, where \emph{strate
 applied to the objects of interest, resulting in a set of rules
 relating the objects. The second stage is to check if there exists
 a \emph{specification} for the original object of interest
-within this set of rules. The term \emph{specification} has a technical meaning
+within this set of rules. The term \emph{specification} has a technical meaning,
 but we can't think of it as a system of equations describing the structure of an object.
 
-After a predefined interval in the expansion stage of combinatorial exploration \motheralg{} enters a searching stage. The expansion stage will have produced a \textit{universe} of combinatorial rules. \motheralg{} now searches this universe for specifications, and is guaranteed to find them if they exist. If no specifications are found, \motheralg{} re-enters the expansion stage.
+After a predefined interval in the expansion stage of combinatorial exploration, \motheralg{} enters a searching stage. The expansion stage will have produced a \textit{universe} of combinatorial rules. \motheralg{} now searches this universe for specifications, and is guaranteed to find them if they exist. If no specifications are found, \motheralg{} re-enters the expansion stage.
 
 We will show below how \motheralg{} has been applied to the field of permutation
 patterns.
@@ -246,18 +246,15 @@ framework is guaranteed to find a specification in the universe if
 one exists, there are cases where the universe contains enough information to
 describe the original object, without any specification existing for it.
 In this case we say that the universe contains a \emph{combinatorial system} for
-the objects.
-Even if some combinatorial systems have been found by hand \cite{BeanPhd}
+the object.
+Even if some combinatorial systems have been found by hand \cite{BeanPhd},
 there is currently no way to find such system automatically.
-We will develop heuristics and algorithms to find combinatorial systems.
+The proposer will develop heuristics and algorithms to find combinatorial systems.
 
 \subsection*{The \tilealg{} algorithm}
-We have added domain-specific knowledge from the field of permutation
-patterns to \motheralg{} and created
-\tilealg{}.
 A \emph{permutation} is a reordering of the integers $1, 2, \dotsc, n$
 for some $n$. Although
-these are simple objects they have deep connections to other fields. Famous
+these are simple objects, they have deep connections to other fields. Famous
 examples include Schubert varieties~\cite{MR1051089}, posets~\cite{MR2652101},
 water waves~\cite{MR2813307}, genome rearrangements~\cite{MR2518996}, planar maps~\cite{CKS09}
 meanders~\cite{fukuda:042202}, and sorting operators~\cite{MR0445948}.
@@ -286,6 +283,9 @@ increasing subsequence of length three.  In this context we refer to $p$ as a
 the (infinite) set of permutations that avoid a given pattern, denoted $\Av(p)$,
 and called a \emph{permutation class}.
 
+Domain-specific knowledge from the field of permutation
+patterns was added to \motheralg{} to create the
+\tilealg{} algorithm.
 When \tilealg{} succeeds it produces a specification in the form of a tree,
 shown in Figure~\ref{fig:123_1432}, for the permutations avoiding the patterns $123$
 and $1432$, first enumerated by West~\cite{West:1996cy}.
@@ -317,18 +317,20 @@ and $1432$, first enumerated by West~\cite{West:1996cy}.
     \caption{The structure of $\Av(123, 1432)$ in terms of simpler substructures}%
     \label{fig:123_1432}
 \end{figure}
-For a beta, \tilealg{} already had stunning success,
-providing structural and enumerative results that together subsume over a dozen
-existing research papers.
+So far, the \tilealg{} as proved to be a excellent
+tool,  providing structural and enumerative results that together subsume over
+a dozen of existing research papers.
 
 The proposer will undertake the creation
 a generalization of the \tilealg{} that describes the structure of permutation
 classes in a finer way by accounting for permutation statistics.
-Permutation statistics are an active area of research in permutation patterns
+Permutation statistics which are special function from the set of
+permutations to $\mathbb{N}$
+are an active area of research in permutation patterns
 \cite{bukata2019statisitics,dokos2012statistics,
-babson2000vincular,branden2011meshpattern} and are function from the sets of all
-permutations to $\mathbb{N}$.
-One example of permutation statistics is the \emph{inversion count}.
+babson2000vincular,branden2011meshpattern}.
+One example of permutation statistics is the \emph{inversion count} that we
+briefly introduce.
 An \emph{inversion} in a permutation $\pi$ is a pair of integer $x < y$ such that $y$
 comes before $x$ in $\pi$. The inversion of the permutation $526413$
 (see Figure~\ref{fig:perm526413}) are $52, 54,51,53,21,64,61,63,41$ and $43$.
@@ -401,7 +403,7 @@ The work packets are detailed under milestones below, as well as when they will
 be attempted.
 
 \noindent\textbf{Methodology.}
-Some of the methods used will be traditional, coming from combinatorics, algorithms and
+Some methods used will be traditional, coming from combinatorics, algorithms and
 computer science. We will also use newer tools, such as generalized grid classes
 and mesh patterns. We will also introduce new strategies, and
 apply methods from computer science, such as probabilistic search and machine
@@ -450,7 +452,7 @@ available for others to use and extend.
 The proposer has a master degree in Mathematics and Informatics from
 Universit\'e du Qu\'ebec \`a Montr\'eal. He has demonstrated a great research
 potential by completing original research during his undergraduate and master
-programs. He already has two peer-reviewed publications and a third publication
+programs. The student already has two peer-reviewed publications and a third publication
 devoted to permutation patterns under review.
 He is also a
 good programmer interested in algorithm.
@@ -465,7 +467,7 @@ permutations~\cite{MR2971010}. He co-created the
 He has advised many students on projects in the theory of permutations,
 e.g.~\cite{WilfOfShort, parti, MagnussonMSC, MurrayMSC, TomasMSc, BeanPhd}.
 
-The PhD student will also collaborates with Jay Pantone who is an
+The PhD student will also collaborate with Jay Pantone who is an
 assistant professor in the Department of Mathematics, Statistics, and Computer
 Science at Marquette University.  Pantone was involved in the developments of
 the beta version of \motheralg{} and is an expert in analytics combinatorics and
