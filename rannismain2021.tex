@@ -1,0 +1,496 @@
+% -*- coding: utf-8 -*-
+\documentclass{rannis}
+
+\usepackage{xargs}
+\usepackage{ifthen}
+\input{patternmacros}
+
+\usepackage{todonotes}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{subcaption}
+
+\newcommand{\motheralg}{\textsf{Combex}}
+\newcommand{\explofmothername}{\underline{Comb}inatorial \underline{Ex}ploration}
+\newcommand{\tilealg}{\textsf{PermScope}}
+\newcommand{\partialg}{\textsf{PartiScope}}
+
+\newcommand{\bisc}{\textsf{BiSC}}
+\newcommand{\struct}{\textsf{Struct}}
+
+\newcommand{\yearofappl}{2021}
+\newcommand{\yearofapplp}{2022}
+\newcommand{\yearofapplpp}{2023}
+
+\newcommand{\yearofappls}{21}
+\newcommand{\yearofapplsp}{22}
+\newcommand{\yearofapplspp}{23}
+
+\newcommand{\disjoint}{\sqcup}
+\newcommand{\eqg}{\cong}
+
+% mathcal letters
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+
+\newcommand{\cA}{{\mathcal{A}}}
+\newcommand{\cB}{{\mathcal{B}}}
+\newcommand{\cC}{{\mathcal{C}}}
+\newcommand{\cD}{{\mathcal{D}}}
+\newcommand{\cE}{{\mathcal{E}}}
+\newcommand{\cI}{{\mathcal{I}}}
+\newcommand{\cS}{{\mathcal{S}}}
+\newcommand{\perms}{\mathcal{S}}
+\newcommand{\gclass}{\mathcal{G}}
+\newcommand{\Av}{\mathrm{Av}}
+\newcommand{\Co}{\mathrm{Co}}
+
+% For tikz pictures
+\usepackage{tikz}
+\usetikzlibrary{matrix,arrows}
+\usetikzlibrary{positioning}
+\usetikzlibrary{fit}
+\usetikzlibrary{patterns}
+
+\newcommand{\imopattern}[6]{ % mesh pattern with white and black dots overlapping
+  \raisebox{0.6ex}{
+  \begin{tikzpicture}[scale=0.35, baseline=(current bounding box.center), #1]
+    \foreach \x/\y in {#6}
+      \fill[pattern=north east lines] (\x,\y) rectangle +(1,1);
+    \draw (0.01,0.01) grid (#2+0.99,#2+0.99);
+    \foreach \x/\y in {#4}
+      \draw[fill=white] (\x,\y) circle (6pt);
+    \foreach \x/\y in {#5}
+      \draw[fill=white] (\x,\y) circle (10pt);
+    \foreach \x/\y in {#3}
+      \filldraw (\x,\y) circle (6pt);
+  \end{tikzpicture}
+  }
+}
+
+% Some environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem*{conjecture*}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{definition}[theorem]{Definition}
+
+\newenvironment{packed_item}{
+\begin{itemize}
+  \setlength{\itemsep}{-1pt}
+  \setlength{\parskip}{-1pt}
+  \setlength{\parsep}{-1pt}
+}{\end{itemize}}
+
+\newenvironment{packed_enum}{
+\begin{enumerate}
+  \setlength{\itemsep}{-1pt}
+  \setlength{\parskip}{-1pt}
+  \setlength{\parsep}{-1pt}
+}{\end{enumerate}}
+
+\usepackage[utf8]{inputenc}
+
+% Language and input.
+\usepackage[icelandic,british]{babel}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+
+\title{Extending the Combex framework with new strategies and heuristics}
+\author{\'Emile Nadeau}
+
+\begin{document}
+
+\newcommand{\lastpageref}{\pageref{LastPageOfDescription}}
+\thispagestyle{empty}
+
+\maketitle
+
+\newpage
+
+\section*{Guidelines}\label{guidelines}
+
+\noindent
+Please note that \emph{all proposals and appendices} should be in
+English.\\
+
+\noindent
+The text in angle brackets (<text>) in this document is provided for guidance
+purposes only, and should be overwritten, by applicant, with the \mbox{requested information}.
+Please insert appropriate material (i.e.\ text, pictures and/or tables)
+and add the principal investigator's name to the header and the
+project's name to the footer.\\
+
+\noindent
+The detailed project description should provide the following
+information, and be divided into the following sections (the order and
+titles should not be changed):\\
+{\it
+\begin{enumerate}
+\def\labelenumi{\Alph{enumi}.}
+\setlength\itemsep{-0.5em}
+\item
+  \begin{quote}
+  Specific aims of the project, research questions/hypotheses,
+  feasibility, originality and impact
+  \end{quote}
+\item
+  \begin{quote}
+  Present state of knowledge in the field
+  \end{quote}
+\item
+  \begin{quote}
+  Research plan (time and work plan, present status of project,
+  methodology and milestones) and deliverables
+  \end{quote}
+\item
+  \begin{quote}
+  Management and co-operation (domestic/foreign)
+  \end{quote}
+\item
+  \begin{quote}
+  Proposed publication of results and data storage (including open
+  access policy)
+  \end{quote}
+\item
+  \begin{quote}
+  Contribution of doctoral and master's degree students to the
+  project\\
+  \end{quote}
+\end{enumerate}
+}
+
+\noindent
+The project description should not exceed \textbf{5 pages} plus
+front page and guidelines (1.5 line spacing, 12 point Times/Times New
+Roman, or similar, 2.5 cm side margins). The \mbox{bibliography} is submitted
+in a separate file with no length limits. Convert the file to pdf before submitting. Please note:
+
+\begin{itemize}
+\setlength\itemsep{-0.5em}
+\item[$\rightarrow$]
+  \emph{\textbf{Incomplete proposals will be rejected}}
+\item[$\rightarrow$]
+  \emph{\textbf{Proposals which exceed length limitations will be
+  rejected without review}}
+\item[$\rightarrow$]
+  \emph{\textbf{Corrections or amendments after the previously announced
+  deadline will be rejected}}
+\item[$\rightarrow$]
+  \emph{\textbf{The clarity and the overall quality of the presentation
+  are taken into consideration when proposals are reviewed}}
+\item[$\rightarrow$]
+  \emph{\textbf{Applications that are not submitted using the most
+  recent application form available will be rejected}}\\
+\end{itemize}
+
+\noindent
+For further information please refer to the \emph{\textbf{Icelandic
+Research Fund Handbook 2021.}}\\
+
+\emph{\textbf{Please do not delete, overwrite, or amend this Guideline
+page in your submission\\
+}}
+
+\newpage
+
+\spacing{1}
+\section{Specific aims of the project, research questions/hypotheses, feasibility, originality and impact}
+\spacing{1.5}
+The goal of this proposal is to extend an existing framework, developed at
+Reykjavik University, which
+leverages domain-specific knowledge to discover and automatically prove
+theorems in mathematics.
+\emph{Combinatorial exploration} is an experimental approach that
+rigorously derives structural results about mathematical objects.
+When a human has discovered the structure of an object there
+are several tools, often automatic, which allow various properties of the object
+to be computed. However, the steps from the problem statement and the original
+object to the structure is often ad-hoc. This is the gap the framework fills.
+A beta version of the framework, called
+\motheralg{} (\explofmothername) exists. It has mainly been applied in
+the field of permutation patterns and is called in that context the
+\tilealg. This algorithm has been able
+to discover new theorems and rediscover several results
+spanning dozens of papers in the research literature.
+
+
+We propose to integrate techniques from machine learning to enhance the beta,
+as well as improving the algorithm to find more general descriptions
+of mathematical objects.
+The outcome of this proposal will be
+publications in journals and presentations at international
+conferences. The implementation of
+these theoretical algorithms will be made available free and open source and
+will be accompanied by a comprehensive manual.
+\subsection*{The \motheralg{} framework}
+
+\motheralg{} performs combinatorial
+exploration in two main stages. First is the expansion stage, where \emph{strategies} are
+applied to the objects of interest, resulting in a set of rules
+relating the objects. The second stage is to check if there exists
+a \emph{specification} for the original object of interest
+within this set of rules. The term \emph{specification} has a technical meaning
+but we can't think of it as a system of equations describing the structure of an object.
+
+After a predefined interval in the expansion stage of combinatorial exploration \motheralg{} enters a searching stage. The expansion stage will have produced a \textit{universe} of combinatorial rules. \motheralg{} now searches this universe for specifications, and is guaranteed to find them if they exist. If no specifications are found, \motheralg{} re-enters the expansion stage.
+
+We will show below how \motheralg{} has been applied to the field of permutation
+patterns.
+As is to be expected with a beta version there is room for improvement. In
+particular, even though the
+framework is guaranteed to find a specification in the universe if
+one exists, there are cases where the universe contains enough information to
+describe the original object, without any specification existing for it.
+In this case we say that the universe contains a \emph{combinatorial system} for
+the objects.
+Even if some combinatorial systems have been found by hand \cite{BeanPhd}
+there is currently no way to find such system automatically.
+We will develop heuristics and algorithms to find combinatorial systems.
+
+\subsection*{The \tilealg{} algorithm}
+We have added domain-specific knowledge from the field of permutation
+patterns to \motheralg{} and created
+\tilealg{}.
+A \emph{permutation} is a reordering of the integers $1, 2, \dotsc, n$
+for some $n$. Although
+these are simple objects they have deep connections to other fields. Famous
+examples include Schubert varieties~\cite{MR1051089}, posets~\cite{MR2652101},
+water waves~\cite{MR2813307}, genome rearrangements~\cite{MR2518996}, planar maps~\cite{CKS09}
+meanders~\cite{fukuda:042202}, and sorting operators~\cite{MR0445948}.
+A permutation $\pi$ \emph{contains} the permutation $p$ if certain technical
+conditions are satisfied. We only give an example here: The permutation $\pi = 526413$
+contains $p = 132$,  in the subsequences $264$, $263$ and $243$; see
+Figure~\ref{fig:perm526413} where we have additionally circled the occurrences of $p$.
+
+\begin{figure}[htbp]
+\begin{center}
+\imopattern{scale=0.7}{ 6 }{ 1/5, 2/2, 3/6, 4/4, 5/1, 6/3 }
+{}{ 2/2, 3/6, 4/4 }{}\qquad
+\imopattern{scale=0.7}{ 6 }{ 1/5, 2/2, 3/6, 4/4, 5/1, 6/3 }
+{}{ 2/2, 3/6, 6/3 }{}\qquad
+\imopattern{scale=0.7}{ 6 }{ 1/5, 2/2, 3/6, 4/4, 5/1, 6/3 }
+{}{ 2/2, 4/4, 6/3 }{}
+\caption{The permutation $526413$ and three occurrences of the $132$}%
+\label{fig:perm526413}
+\end{center}
+\end{figure}
+
+\noindent
+The same permutation \emph{avoids} $123$, as it has no
+increasing subsequence of length three.  In this context we refer to $p$ as a
+ \emph{pattern}. The main object of study in this field is
+the (infinite) set of permutations that avoid a given pattern, denoted $\Av(p)$,
+and called a \emph{permutation class}.
+
+When \tilealg{} succeeds it produces a specification in the form of a tree,
+shown in Figure~\ref{fig:123_1432}, for the permutations avoiding the patterns $123$
+and $1432$, first enumerated by West~\cite{West:1996cy}.
+\begin{figure}[ht]
+    \centering
+        \begin{tikzpicture}[scale = 0.7, vertex/.style = {rectangle,draw = black!50,fill = gray!5,thick}, auto]
+
+         \node [vertex] (root)      at (0,0)     {$\cB$};
+         \node [vertex] (empty)  at (2,-2)   {$\cE$};
+         \node [vertex] (nempty) at (2,0)    {$\metapatt{0.4}{1/1}{1/v,1/h}{}{1/1/p}[0/1,1/1][0/0/1/1/$\cD$,1/0/2/1/$\cB$]$};
+         \node [vertex] (nemptyl) at (5,0)    {$\metapatt{0.4}{1/1}{1/v,1/h}{}{1/1/p}[0/1,1/1,0/0][1/0/2/1/$\cB$]$};
+         \node [vertex] (nemptyr) at (5,-2.5)    {$\metapatt{0.4}{2/2}{1/v,2/v,1/h,2/h}{}{1/1/p,2/2/p}[0/2,1/2,2/2,0/0,1/0,1/1][0/1/1/2/$\cD$,2/1/3/2/$\cD$,2/0/3/1/$\cB$]$};
+         \node [vertex] (nemptyrl) at (9,-3)    {$\metapatt{0.4}{2/2}{1/v,2/v,1/h,2/h}{}{1/1/p,2/2/p}[0/2,1/2,2/2,0/0,1/0,1/1,2/1][0/1/1/2/$\cD$,2/0/3/1/$\cB$]$};
+         \node [vertex] (nemptyrr) at (9,0)    {$\metapatt{0.4}{4/3}{1/v,2/v,3/v,4/v,1/h,2/h,3/h}{}{2/1/p,3/3/p,4/2/p}[0/3,1/3,2/3,3/3,0/0,1/0,0/1,1/2,2/1,2/2,3/1,3/2,2/0,4/1,4/2,4/3][1/1/2/2/$\cD$,0/2/1/3/$\cD$,3/0/4/1/$\cD$,4/0/5/1/$\cB$]$};
+         \node [vertex] (factorl) at (13,.2)    {$\metapatt{0.4}{3/3}{1/v,2/v,3/v,1/h,2/h,3/h}{}{2/1/p,3/3/p}[0/3,1/3,2/3,3/3,0/0,1/0,0/1,1/2,2/1,2/2,3/0,3/1,3/2,2/0][1/1/2/2/$\cD$,0/2/1/3/$\cD$]$};
+         \node [vertex] (factorr) at (13.5,-2.5)    {$\metapatt{0.4}{1/1}{1/v,1/h}{}{1/1/p}[0/1,1/1][0/0/1/1/$\cD$,1/0/2/1/$\cB$]$};
+
+
+         \draw [-,semithick] (root) to (empty);
+         \draw [-,semithick] (root) to (nempty);
+         \draw [-,semithick] (nempty) to (nemptyl);
+         \draw [-,semithick] (nempty) to (nemptyr);
+         \draw [-,semithick] (nemptyr) to (nemptyrl);
+         \draw [-,semithick] (nemptyr) to (nemptyrr);
+         \draw [-,semithick] (nemptyrr) to (factorl);
+         \draw [-,semithick] (nemptyrr) to (factorr);
+
+        \end{tikzpicture}
+    \caption{The structure of $\Av(123, 1432)$ in terms of simpler substructures}%
+    \label{fig:123_1432}
+\end{figure}
+For a beta, \tilealg{} already had stunning success,
+providing structural and enumerative results that together subsume over a dozen
+existing research papers.
+
+The proposer will undertake the creation
+a generalization of the \tilealg{} that describes the structure of permutation
+classes in a finer way by accounting for permutation statistics.
+Permutation statistics are an active area of research in permutation patterns
+\cite{bukata2019statisitics,dokos2012statistics,
+babson2000vincular,branden2011meshpattern} and are function from the sets of all
+permutations to $\mathbb{N}$.
+One example of permutation statistics is the \emph{inversion count}.
+An \emph{inversion} in a permutation $\pi$ is a pair of integer $x < y$ such that $y$
+comes before $x$ in $\pi$. The inversion of the permutation $526413$
+(see Figure~\ref{fig:perm526413}) are $52, 54,51,53,21,64,61,63,41$ and $43$.
+The inversion count of $\pi$, denoted $\mathrm{inv}(\pi)$, is 9.
+
+
+\subsection*{Machine learning and heuristics}
+The \motheralg{} beta is a naive breadth-first search algorithm. The
+general objectives which the algorithm is trying to accomplish have clear
+analogies with other tree-search paradigms. For instance
+\emph{iterative deepening}, i.e., pursuing a search deeper at promising nodes
+before returning to a generally breadth-first approach. Since there is no
+existing expert knowledge in the field to determine how to evaluate what
+constitutes a ``promising'' node this approach would need to be coupled with
+machine learning of such evaluation functions based on the beta's
+experience over a wide variety of training examples, both successful and
+unsuccessful.
+
+\subsection*{Feasibility, originality, and impact}
+Given a
+specification for a class there are methods, often automatic, for
+obtaining a system of equations and finding the generating function.
+This can then be used to give the enumerative information for
+the class and many other properties. To find a
+specification for a class, mathematicians have often
+used ad-hoc techniques and the theory has not been developed as much.
+\motheralg{} and the theory of combinatorial exploration will bridge this gap
+and automate the process of going from a class to a
+specification. Rather than rediscovering similar methods and repeating the same
+ideas, \motheralg{} will push mathematical developments in new directions.
+
+The beta version has been very successful and found
+specifications for classes that had entire papers devoted to them, including but
+not limited to~\cite{inflationsofgridclasses, smoothclasses, le-wilfclasses,
+dbis, jaysgridclasses}.
+Despite these successes, numerous interesting cases still remain, in particular,
+$\Av(1324)$, the biggest open problem in the field, against which every new
+proof method is tested.
+If we are successful in finding a structure
+and generating function for unenumerated classes, in particular the
+$1324$-avoiders, it would be considered a major breakthrough. Even tighter bounds
+on the enumeration of this set are worthy of publication.
+\\
+
+\spacing{1}
+\section{Present state of knowledge in the field}
+\spacing{1.5}
+There exist specialized algorithms for enumerating permutation classes, such as
+enumeration schemes \mbox{Zeilberger}~\cite{MR1682929} with a generalization
+that accounts for statistics \mbox{Baxter}~\cite{baxter2014scheme_statistics};
+regular insertion encoding \mbox{Albert}, \mbox{Linton}, and \mbox{Ru\v{s}kuc}~\cite{MR2176523};
+substitution decomposition of classes with finitely many simple permutations \mbox{Bassino}
+et al.~\cite{subdecompimplement}; and
+guessing a disjoint union of grid classes Bean, Gudmundsson, and Ulfarsson~\cite{algstruct, structpaper}.
+These algorithms are deterministic and either succeed or fail on their inputs.
+The \motheralg{} framework is different in that it generates a universe of true
+statements about the object under investigation, and from this universe one can
+often extract enough information to reveal the structure of the object. What we
+are proposing in this application is strengthening the framework in such a way that
+it can reveal the structure of the object with a smaller universe, therefore making
+it applicable to more problems.
+\\
+
+\spacing{1}
+\section{Research plan (time and work plan, methodology, milestones, present status of project, etc.) and deliverables. Refer to more detailed description of milestones and deliverables in part  3 in the IRF electronic application system. Explain if consents and/or permits are needed}
+\spacing{1.5}
+
+\noindent \textbf{Time and work plan.}
+The work packets are detailed under milestones below, as well as when they will
+be attempted.
+
+\noindent\textbf{Methodology.}
+Some of the methods used will be traditional, coming from combinatorics, algorithms and
+computer science. We will also use newer tools, such as generalized grid classes
+and mesh patterns. We will also introduce new strategies, and
+apply methods from computer science, such as probabilistic search and machine
+learning.
+
+\noindent \textbf{Milestones.}
+\begin{packed_enum}
+
+\item[WP1] Develop algorithm to automatically finds combinatorial systems with
+    a single variable automatically.  (Jan-Jun '\yearofappls)
+\item[WP2] Develop algorithm to automatically finds combinatorial systems
+    in many variables automatically.  (Jul-Dec '\yearofappls)
+\item[WP3] Implement iterative deepening search in the framework. (Jan-Jun '\yearofapplsp)
+\item[WP4] Extend the \tilealg{} algorithm to find specification and
+    combinatorial system that describe permutation statistics in classes.
+    (Jul-Dec '\yearofapplsp)
+    % Name in system: C1 Iterative deepening
+    % Start: 25
+    % End: 36
+    % Project: Phd1 (EN)
+    % Milestones
+    %    Obtain specifications that were out of reach earlier 30
+    %    Some theoretical results on complexity of this approach 36
+    % Deliverables and contributing staff
+    % This will be the topic of the PhD student, advised by HU. We will be able to expand the search space better. All the proposers will provide assistance.
+
+\end{packed_enum}
+
+\noindent\textbf{Present status of the project.} As we noted in the subsection on
+feasibility, originality, and impact of our work, our beta has been successful
+with several cases. As can be expected from a beta, there are many
+obvious avenues for improvements, such as
+searching in a more clever manner, looking for combinatorial systems and
+description of statistics.
+
+\noindent\textbf{Deliverables.}
+Results obtained will be turned into papers and talks at conferences, as is
+customary with mathematical research.  We hope that these results will lead to
+more work by others in the area. The developed code base will be made publicly
+available for others to use and extend.
+\\
+
+\spacing{1}
+\section{Management and co-operation (domestic/foreign)}
+\spacing{1.5}
+The proposer has a master degree in Mathematics and Informatics from
+Universit\'e du Qu\'ebec \`a Montr\'eal. He has demonstrated a great research
+potential by completing original research during his undergraduate and master
+programs. He already has two peer-reviewed publications and a third publication
+devoted to permutation patterns under review.
+He is also a
+good programmer interested in algorithm.
+The proposer will be advised by Henning Ulfarsson, an assistant professor
+at Reykjavik University. Ulfarsson leads a research group in the field and has
+a large network of collaborators.
+He has solved two long-standing open
+problems in the field: the description of local complete intersection Schubert
+varieties, with Woo~\cite{UW11}, and the description of West-$3$-stack-sortable
+permutations~\cite{MR2971010}. He co-created the
+\bisc{}~\cite{BiSC} and \struct{} algorithms~\cite{algstruct, structpaper}.
+He has advised many students on projects in the theory of permutations,
+e.g.~\cite{WilfOfShort, parti, MagnussonMSC, MurrayMSC, TomasMSc, BeanPhd}.
+
+The PhD student will also collaborates with Jay Pantone who is an
+assistant professor in the Department of Mathematics, Statistics, and Computer
+Science at Marquette University.  Pantone was involved in the developments of
+the beta version of \motheralg{} and is an expert in analytics combinatorics and
+permutations patterns.
+\\
+
+\spacing{1}
+\section{Proposed publication of results and data storage (including adherence to open access policy)}
+\spacing{1.5}
+New results will be published in top-tier refereed open access
+international journals in discrete mathematics and related fields, as well as
+disseminated at seminars and conferences.
+\\%
+\label{LastPageOfDescription}
+\clearpage
+\setcounter{page}{1}
+\renewcommand{\lastpageref}{\pageref{LastPage}}%
+
+\bibliographystyle{apsrev}
+
+\bibliography{rannis2021}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
