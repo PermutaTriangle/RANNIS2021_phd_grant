@@ -212,7 +212,7 @@ these steps.
 A beta version of the framework, called
 \motheralg{} (\explofmothername) exists. It has mainly been applied in
 the field of permutation patterns and is called in that context the
-\tilealg. This algorithm has been able
+\tilealg algorithm. This algorithm has been able
 to discover new theorems and rediscover several results
 spanning dozens of papers in the research literature.
 
@@ -233,7 +233,7 @@ relating the objects. The second stage is to check if there exists
 a \emph{specification} for the original object of interest
 within this set of rules. The term \emph{specification} has a technical meaning,
 but we can think of it as a system of equations describing the structure of an
-object. If a specification exist in the universe \motheralg{} is guaranteed to
+object. If a specification exists in the universe \motheralg{} is guaranteed to
 find it.
 If no specifications are found, \motheralg{} re-enters the expansion stage,
 enlarging the universe, until searching again, \emph{etc}.
@@ -319,31 +319,38 @@ and $1432$, first enumerated by West~\cite{West:1996cy}.
     \caption{The structure of $\Av(123, 1432)$ in terms of simpler substructures}%
     \label{fig:123_1432}
 \end{figure}
-So far, the \tilealg{} as proved to be a excellent
+So far, the \tilealg{} algorithm has proved to be a excellent
 tool,  providing structural and enumerative results that together subsume over
 a dozen of existing research papers.
 
 The proposer will undertake the creation
-a generalization of the \tilealg{} that describes the structure of permutation
-classes in a finer way by accounting for permutation statistics,
-which are special functions from the set of permutations to $\mathbb{N}$.
-These functions are an active area of research in permutation
-patterns~\cite{bukata2019statisitics, dokos2012statistics,
+of a generalization of the \tilealg{} algorithm that describes the structure of permutation
+classes in a finer way by accounting for permutation statistics.
+The study of permutation statistics is an active area of research in
+combinatorics~\cite{bukata2019statisitics, dokos2012statistics,
 babson2000vincular,branden2011meshpattern}.
-One example of permutation statistics is the \emph{inversion count} that we
-briefly introduce.
-An \emph{inversion} in a permutation $\pi$ is a pair of integers $x < y$
-such that $y$ comes before $x$ in $\pi$.
-The inversions of the permutation $526413$
+and similar research is being done more widely on
+statistics of other combinatorial objects~\cite{findstat, MR4011551, MR4109929}.
+One important example of a
+permutation statistic is the inversion number. An \emph{inversion} is a pair of
+entries in a permutation such that the leftmost entry of the pair has value
+greater than the rightmost entry on the pair. The \emph{inversion number} of a
+permutation is the number of pairs of entries it has that form an inversion;
+as such, the
+inversion number is a function from the set of all permutations to $\mathbb{N}$.
+For example, the inversions of the permutation $526413$
 (see Figure~\ref{fig:perm526413}) are $52, 54,51,53,21,64,61,63,41$ and $43$.
-The inversion count of $\pi$, denoted $\mathrm{inv}(\pi)$, is 9.
+Hence, the inversion count of $526413$ is 9.
+More generally, a \emph{permutation statistic} is any function from the set of
+all permutations to $\mathbb{N}$.
 
 
 \subsection*{Machine learning and heuristics}
 The \motheralg{} beta is a naive breadth-first search algorithm. The
 general objectives which the algorithm is trying to accomplish have clear
 analogies with other tree-search paradigms. For instance
-\emph{iterative deepening}, i.e., pursuing a search deeper at promising nodes
+\emph{iterative deepening}~\cite{KORF198597,russell2002artificial},
+i.e., pursuing a search deeper at promising nodes
 before returning to a generally breadth-first approach. Since there is no
 existing expert knowledge in the field to determine how to evaluate what
 constitutes a ``promising'' node this approach would need to be coupled with
@@ -371,7 +378,7 @@ Despite these successes, numerous interesting cases still remain, in particular,
 $\Av(1324)$, the biggest open problem in the field, against which every new
 proof method is tested.
 If we are successful in finding a structure
-and generating function for unenumerated classes, in particular the
+and generating function for unenumerated classes, in particular
 $\Av(1324)$, it would be considered a major breakthrough. Even tighter bounds
 on the enumeration of this set are worthy of publication.
 \\
@@ -380,12 +387,12 @@ on the enumeration of this set are worthy of publication.
 \section{Present state of knowledge in the field}
 \spacing{1.5}
 There exist specialized algorithms for enumerating permutation classes, such as
-enumeration schemes \mbox{Zeilberger}~\cite{MR1682929} with a generalization
-that accounts for statistics \mbox{Baxter}~\cite{baxter2014scheme_statistics};
-regular insertion encoding \mbox{Albert}, \mbox{Linton}, and \mbox{Ru\v{s}kuc}~\cite{MR2176523};
-substitution decomposition of classes with finitely many simple permutations \mbox{Bassino}
-et al.~\cite{subdecompimplement}; and
-guessing a disjoint union of grid classes Bean, Gudmundsson, and Ulfarsson~\cite{algstruct, structpaper}.
+enumeration schemes of \mbox{Zeilberger}~\cite{MR1682929} with a generalization
+that accounts for statistics of \mbox{Baxter}~\cite{baxter2014scheme_statistics};
+regular insertion encoding of \mbox{Albert}, \mbox{Linton}, and \mbox{Ru\v{s}kuc}~\cite{MR2176523};
+substitution decomposition of classes with finitely many simple permutations
+of \mbox{Bassino} et al.~\cite{subdecompimplement}; and
+guessing a disjoint union of grid classes of Bean, Gudmundsson, and Ulfarsson~\cite{algstruct, structpaper}.
 These algorithms are deterministic and either succeed or fail on their inputs.
 The \motheralg{} framework is different in that it generates a universe of true
 statements about the object under investigation, and from this universe one can
@@ -427,7 +434,7 @@ feasibility, originality, and impact of our work, our beta has been successful
 with several cases. As can be expected from a beta, there are many
 obvious avenues for improvements, such as
 searching in a more clever manner, looking for combinatorial systems and
-description of statistics.
+finding specifications that describe statistics.
 
 \noindent\textbf{Deliverables.}
 Results obtained will be turned into papers and talks at conferences, as is
@@ -439,7 +446,7 @@ available for others to use and extend.
 \spacing{1}
 \section{Management and co-operation (domestic/foreign)}
 \spacing{1.5}
-The proposer has a master degree in Mathematics and Informatics from
+The proposer has a master's degree in Mathematics and Informatics from
 Universit\'e du Qu\'ebec \`a Montr\'eal. He has demonstrated great research
 potential by completing original research during his undergraduate and master
 programs. The student already has two peer-reviewed publications and a third publication
@@ -448,8 +455,9 @@ He is also a
 good programmer interested in algorithms
 
 The PhD student will also collaborate with Jay Pantone who is an
-assistant professor in the Department of Mathematics, Statistics, and Computer
-Science at Marquette University.  Pantone was involved in the developments of
+assistant professor in the
+Department of Mathematical and Statistical Sciences at Marquette University.
+Pantone was involved in the developments of
 the beta version of \motheralg{} and is an expert in analytic combinatorics and
 permutations patterns.
 \\
@@ -467,7 +475,6 @@ disseminated at seminars and conferences.
 \renewcommand{\lastpageref}{\pageref{LastPage}}%
 
 \bibliographystyle{apsrev}
-
 \bibliography{rannis2021}
 
 \end{document}
