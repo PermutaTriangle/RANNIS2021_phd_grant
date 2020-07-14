@@ -2,7 +2,8 @@
 Extending the Combex framework
 
 ### Title in Icelandic:
-Útvíkkun á Combex-rammanum með nýjum kænskum og brjóstvitsaðferðum
+Útvíkkun á Combex-aðferðinni
+
 
 ### Acronym: Combex
 
@@ -15,9 +16,10 @@ The proposer will work on improving the Combex framework and the PermScope algor
 The outcome of this proposal includes publications in journals and presentations at international conferences. The implementations of these theoretical algorithms will be made available open source.
 
 ### Abstract in Icelandic
+
 Við leggjum til áframhaldandi þróun á umhverfi sem getur nýtt sérhæfða þekkingu til þess að uppgötva og sanna fræðisetningar á fjölmörgum sviðum stærðfræðinnar.
 
-Fléttufræðileg könnun er tilraunakennd aðferð sem leyfir nákvæma útleiðslu á uppbyggingu stærðfræðilegra fyrirbæra. Þegar manneskja hefur fundið uppbyggingu hlutar eru til ýmsar aðferðir til að reikna út eiginleika hlutarins. Hinsvegar eru skrefin frá upphaflega vandamálinu að uppbyggingunni oft handahófskennd. Það er þetta bil sem við leggjum til að fylla í.
+Fléttufræðileg könnun er tilraunakennd aðferð sem leyfir nákvæma útleiðslu á uppbyggingu stærðfræðilegra fyrirbæra. Þegar manneskja hefur fundið uppbyggingu hlutar eru til ýmsar aðferðir til að reikna út eiginleika hlutarins. Hinsvegar eru skrefin frá upphaflega vandamálinu að uppbyggingunni oft handahófskennd. Það er þetta bil sem við ætlum að brúa.
 
 Með aðferðum úr fléttufræði, tölvualgebru og algebrulegri rúmfræði höfum við útfært frumgerð af umhverfinu. Með því að bæta við sérhæfðri þekkingu úr sviði umraðanamynstra við frumgerðina bjuggum við til reiknirit sem hefur uppgötvað nýjar fræðisetningar og enduruppgötvað niðustöður sem spanna fjölmargar greinar í fræðunum.
 
