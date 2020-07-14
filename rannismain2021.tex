@@ -62,7 +62,7 @@
     \foreach \x/\y in {#4}
       \draw[fill=white] (\x,\y) circle (6pt);
     \foreach \x/\y in {#5}
-      \draw[fill=white] (\x,\y) circle (10pt);
+      \draw[fill=white] (\x,\y) circle (14pt);
     \foreach \x/\y in {#3}
       \filldraw (\x,\y) circle (6pt);
   \end{tikzpicture}
@@ -200,23 +200,21 @@ page in your submission\\
 \spacing{1}
 \section{Specific aims of the project, research questions/hypotheses, feasibility, originality and impact}
 \spacing{1.5}
-The goal of this proposal is to extend an existing framework, developed at
-Reykjavik University, which
-leverages domain-specific knowledge to discover and automatically prove
-theorems in mathematics.
+
 \emph{Combinatorial exploration} is an experimental approach that
 rigorously derives structural results about mathematical objects.
 When a human has discovered the structure of an object there
 are several tools, often automatic, which allow various properties of the object
 to be computed. However, the steps from the problem statement and the original
-object to the structure is often ad-hoc. This is the gap the framework fills.
+object to the structure is often ad-hoc.
+A framework is being developed at Reykjavik University to automate and formalize
+these steps.
 A beta version of the framework, called
 \motheralg{} (\explofmothername) exists. It has mainly been applied in
 the field of permutation patterns and is called in that context the
 \tilealg. This algorithm has been able
 to discover new theorems and rediscover several results
 spanning dozens of papers in the research literature.
-
 
 We propose to integrate techniques from machine learning to enhance the beta,
 as well as improving the algorithm to find more general descriptions
@@ -230,25 +228,29 @@ will be accompanied by a comprehensive manual.
 
 \motheralg{} performs combinatorial
 exploration in two main stages. First is the expansion stage, where \emph{strategies} are
-applied to the objects of interest, resulting in a set of rules
+applied to the objects of interest, resulting in a universe of rules
 relating the objects. The second stage is to check if there exists
 a \emph{specification} for the original object of interest
 within this set of rules. The term \emph{specification} has a technical meaning,
-but we can't think of it as a system of equations describing the structure of an object.
-
-After a predefined interval in the expansion stage of combinatorial exploration, \motheralg{} enters a searching stage. The expansion stage will have produced a \textit{universe} of combinatorial rules. \motheralg{} now searches this universe for specifications, and is guaranteed to find them if they exist. If no specifications are found, \motheralg{} re-enters the expansion stage.
+but we can think of it as a system of equations describing the structure of an
+object. If a specification exist in the universe \motheralg{} is guaranteed to
+find it.
+If no specifications are found, \motheralg{} re-enters the expansion stage,
+enlarging the universe, until searching again, \emph{etc}.
 
 We will show below how \motheralg{} has been applied to the field of permutation
-patterns.
+patterns, but ask the reader to remember that the framework can be applied in
+other fields.
 As is to be expected with a beta version there is room for improvement. In
 particular, even though the
 framework is guaranteed to find a specification in the universe if
 one exists, there are cases where the universe contains enough information to
 describe the original object, without any specification existing for it.
-In this case we say that the universe contains a \emph{combinatorial system} for
-the object.
-Even if some combinatorial systems have been found by hand \cite{BeanPhd},
-there is currently no way to find such system automatically.
+
+There is no existing theory for this phenomenon but we say
+that the universe contains a \emph{combinatorial system} for the object.
+Even if some combinatorial systems have been found by hand~\cite{BeanPhd},
+there is currently no way to find them automatically.
 The proposer will develop heuristics and algorithms to find combinatorial systems.
 
 \subsection*{The \tilealg{} algorithm}
@@ -280,7 +282,7 @@ Figure~\ref{fig:perm526413} where we have additionally circled the occurrences o
 The same permutation \emph{avoids} $123$, as it has no
 increasing subsequence of length three.  In this context we refer to $p$ as a
  \emph{pattern}. The main object of study in this field is
-the (infinite) set of permutations that avoid a given pattern, denoted $\Av(p)$,
+the (usually infinite) set of permutations that avoid a given pattern, denoted $\Av(p)$,
 and called a \emph{permutation class}.
 
 Domain-specific knowledge from the field of permutation
@@ -323,16 +325,16 @@ a dozen of existing research papers.
 
 The proposer will undertake the creation
 a generalization of the \tilealg{} that describes the structure of permutation
-classes in a finer way by accounting for permutation statistics.
-Permutation statistics which are special function from the set of
-permutations to $\mathbb{N}$
-are an active area of research in permutation patterns
-\cite{bukata2019statisitics,dokos2012statistics,
+classes in a finer way by accounting for permutation statistics,
+which are special functions from the set of permutations to $\mathbb{N}$.
+These functions are an active area of research in permutation
+patterns~\cite{bukata2019statisitics, dokos2012statistics,
 babson2000vincular,branden2011meshpattern}.
 One example of permutation statistics is the \emph{inversion count} that we
 briefly introduce.
-An \emph{inversion} in a permutation $\pi$ is a pair of integer $x < y$ such that $y$
-comes before $x$ in $\pi$. The inversion of the permutation $526413$
+An \emph{inversion} in a permutation $\pi$ is a pair of integers $x < y$
+such that $y$ comes before $x$ in $\pi$.
+The inversions of the permutation $526413$
 (see Figure~\ref{fig:perm526413}) are $52, 54,51,53,21,64,61,63,41$ and $43$.
 The inversion count of $\pi$, denoted $\mathrm{inv}(\pi)$, is 9.
 
@@ -351,14 +353,13 @@ unsuccessful.
 
 \subsection*{Feasibility, originality, and impact}
 Given a
-specification for a class there are methods, often automatic, for
-obtaining a system of equations and finding the generating function.
-This can then be used to give the enumerative information for
-the class and many other properties. To find a
-specification for a class, mathematicians have often
+specification for a mathematical object there are methods, often automatic, for
+understanding the object structurally and enumeratively.
+To find a
+specification for an object, mathematicians have often
 used ad-hoc techniques and the theory has not been developed as much.
 \motheralg{} and the theory of combinatorial exploration will bridge this gap
-and automate the process of going from a class to a
+and automate the process of going from an object to a
 specification. Rather than rediscovering similar methods and repeating the same
 ideas, \motheralg{} will push mathematical developments in new directions.
 
@@ -371,7 +372,7 @@ $\Av(1324)$, the biggest open problem in the field, against which every new
 proof method is tested.
 If we are successful in finding a structure
 and generating function for unenumerated classes, in particular the
-$1324$-avoiders, it would be considered a major breakthrough. Even tighter bounds
+$\Av(1324)$, it would be considered a major breakthrough. Even tighter bounds
 on the enumeration of this set are worthy of publication.
 \\
 
@@ -412,21 +413,12 @@ learning.
 \noindent \textbf{Milestones.}
 \begin{packed_enum}
 
-\item[WP1] Develop algorithm to automatically finds combinatorial systems
-    automatically.  (Jan-Dec '\yearofappls)
+\item[WP1] Develop algorithm to find combinatorial systems automatically.
+    (Jan-Dec '\yearofappls)
 \item[WP2] Implement iterative deepening search in the framework. (Jan-Jun '\yearofapplsp)
-\item[WP3] Extend the \tilealg{} algorithm to find specification and
-    combinatorial system that describe permutation statistics in classes.
+\item[WP3] Extend the \tilealg{} algorithm to find specifications and
+    combinatorial systems that describe permutation statistics in classes.
     (Jul-Dec '\yearofapplsp)
-    % Name in system: C1 Iterative deepening
-    % Start: 25
-    % End: 36
-    % Project: Phd1 (EN)
-    % Milestones
-    %    Obtain specifications that were out of reach earlier 30
-    %    Some theoretical results on complexity of this approach 36
-    % Deliverables and contributing staff
-    % This will be the topic of the PhD student, advised by HU. We will be able to expand the search space better. All the proposers will provide assistance.
 
 \end{packed_enum}
 
@@ -448,27 +440,17 @@ available for others to use and extend.
 \section{Management and co-operation (domestic/foreign)}
 \spacing{1.5}
 The proposer has a master degree in Mathematics and Informatics from
-Universit\'e du Qu\'ebec \`a Montr\'eal. He has demonstrated a great research
+Universit\'e du Qu\'ebec \`a Montr\'eal. He has demonstrated great research
 potential by completing original research during his undergraduate and master
 programs. The student already has two peer-reviewed publications and a third publication
 devoted to permutation patterns under review.
 He is also a
-good programmer interested in algorithm.
-The proposer will be advised by Henning Ulfarsson, an assistant professor
-at Reykjavik University. Ulfarsson leads a research group in the field and has
-a large network of collaborators.
-He has solved two long-standing open
-problems in the field: the description of local complete intersection Schubert
-varieties, with Woo~\cite{UW11}, and the description of West-$3$-stack-sortable
-permutations~\cite{MR2971010}. He co-created the
-\bisc{}~\cite{BiSC} and \struct{} algorithms~\cite{algstruct, structpaper}.
-He has advised many students on projects in the theory of permutations,
-e.g.~\cite{WilfOfShort, parti, MagnussonMSC, MurrayMSC, TomasMSc, BeanPhd}.
+good programmer interested in algorithms
 
 The PhD student will also collaborate with Jay Pantone who is an
 assistant professor in the Department of Mathematics, Statistics, and Computer
 Science at Marquette University.  Pantone was involved in the developments of
-the beta version of \motheralg{} and is an expert in analytics combinatorics and
+the beta version of \motheralg{} and is an expert in analytic combinatorics and
 permutations patterns.
 \\
 
